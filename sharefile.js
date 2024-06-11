@@ -1,4 +1,4 @@
-async function authenticate(clientID, clientSecret, username, password) {
+async function getToken(clientID, clientSecret, username, password) {
 	// Authenticate with ShareFile
 	const myHeaders = new Headers();
 	myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
@@ -22,10 +22,12 @@ async function authenticate(clientID, clientSecret, username, password) {
 			"https://sophusconsulting.sharefile.com/oauth/token",
 			requestOptions
 		);
-		const token = await response.json();
+		const auth = await response.json();
+		const token = auth.access_token;
+		console.log("Auth Token successfully retrieved");
 		return token;
 	} catch (error) {
-		console.log("error", error);
+		console.log("Error getting auth token:", error);
 	}
 }
 
@@ -52,9 +54,12 @@ async function getUploadLink(file, fileName, folder, token) {
 			requestOptions
 		);
 		const response = await data.json();
-		return response;
+		const link = response.ChunkUri;
+
+		console.log("Upload link successfully retrieved", link);
+		return link;
 	} catch (error) {
-		console.log(error);
+		console.log("Error getting upload link:", error);
 	}
 }
 
@@ -71,14 +76,16 @@ async function uploadFile(file, fileName, link) {
 
 	try {
 		const response = await fetch(link, requestOptions);
-		return response.text();
+		const responseText = await response.text();
+		console.log("File successfully uploaded:", responseText);
+		return responseText;
 	} catch (error) {
-		console.log(error);
+		console.log("Error uploading file:", error);
 	}
 }
 
 module.exports = {
-	authenticate,
+	getToken,
 	uploadFile,
 	getUploadLink,
 };

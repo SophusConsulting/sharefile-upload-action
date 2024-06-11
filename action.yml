@@ -1,0 +1,33 @@
+name: 'Upload to ShareFile'
+description: 'Upload a file to ShareFile'
+inputs:
+  client-id:  
+    description: 'Client ID of the ShareFile account'
+    required: true
+    default: ''
+  client-secret:  
+    description: 'Client secret of the ShareFile account'
+    required: true
+    default: ''
+  username:  
+    description: 'Username of the ShareFile account'
+    required: true
+    default: ''
+  password:  
+    description: 'Generated password of the ShareFile account'
+    required: true
+    default: ''
+  file-to-upload:  
+    description: 'File to upload to ShareFile'
+    required: true
+    default: ''
+  folder-to-upload:  
+    description: 'Target folder in ShareFile to which to upload the file' 
+    required: true
+    default: ''
+outputs:
+  time: # id of output
+    description: 'The time we greeted you'
+runs:
+  using: 'node20'
+  main: 'index.js'

@@ -7,7 +7,7 @@ const fs = require("fs");
 async function uploadToShareFile() {
 	try {
 
-		const clientID = core.getInput("client-name");
+		const clientID = core.getInput("client-id");
 		const clientSecret = core.getInput("client-secret");
 		const username = core.getInput("username");
 		const password = core.getInput("password");

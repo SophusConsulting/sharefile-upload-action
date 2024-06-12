@@ -6,6 +6,7 @@ const fs = require("fs");
 
 async function uploadToShareFile() {
 	try {
+
 		const clientID = core.getInput("client-name");
 		const clientSecret = core.getInput("client-secret");
 		const username = core.getInput("username");
@@ -14,7 +15,7 @@ async function uploadToShareFile() {
 		const fileName = core.getInput("file-name");
 		const folder = core.getInput("folder-to-upload");
 
-		const file = await fs.openAsBlob("filePath");
+		const file = await fs.openAsBlob(filePath);
 
 		const token = await getToken(clientID, clientSecret, username, password);
 

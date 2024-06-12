@@ -77,7 +77,7 @@ async function uploadFile(file, fileName, link) {
 	try {
 		const response = await fetch(link, requestOptions);
 		const responseText = await response.text();
-		console.log("File successfully uploaded:", responseText);
+		console.log("File successfully uploaded.");
 		return responseText;
 	} catch (error) {
 		console.log("Error uploading file:", error);

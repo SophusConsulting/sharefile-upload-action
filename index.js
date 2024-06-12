@@ -10,7 +10,7 @@ async function uploadToShareFile() {
 		// const clientSecret = core.getInput('client-secret');
 		// const username = core.getInput('username');
 		// const password = core.getInput('password');
-		// const file = core.getInput('file-to-upload');
+		// const file = core.getInput('path-to-file');
 		// const fileName = core.getInput('file-name');
 		// const folder = core.getInput('folder-to-upload');
 
@@ -26,7 +26,6 @@ async function uploadToShareFile() {
 
 		const link = await getUploadLink(file, fileName, folder, token);
 		const response = await uploadFile(file, fileName, link);
-
 	} catch (error) {
 		console.log(error);
 		core.setFailed(error.message);

@@ -17,7 +17,7 @@ inputs:
     description: 'Generated password of the ShareFile account'
     required: true
     default: ''
-  file-to-upload:  
+  path-to-file:  
     description: 'File to upload to ShareFile'
     required: true
     default: ''
@@ -25,6 +25,11 @@ inputs:
     description: 'Target folder in ShareFile to which to upload the file' 
     required: true
     default: ''
+  file-name:  
+    description: 'Name of the file'
+    required: true
+    default: ''
+  
 outputs:
   time: # id of output
     description: 'The time we greeted you'

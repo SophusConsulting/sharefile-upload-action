@@ -48,12 +48,16 @@ async function getUploadLink(file, fileName, folder, token) {
 		redirect: "follow",
 	};
 
+	console.log("Getting upload link for ", fileName, " in folder ", folder);
+
 	try {
 		const data = await fetch(
-			`https://sophusconsulting.sharefile.com/sf/v3/Items(${folder})/Upload `,
+			`https://sophusconsulting.sharefile.com/sf/v3/Items(${folder})/Upload`,
 			requestOptions
 		);
 		const response = await data.json();
+		console.log(response);
+
 		const link = response.ChunkUri;
 
 		console.log("Upload link successfully retrieved", link);

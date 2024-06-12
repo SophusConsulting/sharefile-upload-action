@@ -14,7 +14,7 @@ async function uploadToShareFile() {
 		const fileName = core.getInput("file-name");
 		const folder = core.getInput("folder-to-upload");
 
-		const file = await fs.openAsBlob("./pdf-test.pdf");
+		const file = await fs.openAsBlob("filePath");
 
 		const token = await getToken(clientID, clientSecret, username, password);
 

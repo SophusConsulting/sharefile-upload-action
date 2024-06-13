@@ -1,3 +1,5 @@
+const process = require("process");
+
 async function getToken(clientID, clientSecret, username, password) {
 	// Authenticate with ShareFile
 	const myHeaders = new Headers();
@@ -22,16 +24,23 @@ async function getToken(clientID, clientSecret, username, password) {
 			"https://sophusconsulting.sharefile.com/oauth/token",
 			requestOptions
 		);
+
+		if (response.status !== 200) {
+			console.log("Error getting auth token:", response.statusText);
+			process.exit(1);
+		}
+
 		const auth = await response.json();
 		const token = auth.access_token;
 		console.log("Auth Token successfully retrieved");
 		return token;
 	} catch (error) {
 		console.log("Error getting auth token:", error);
+		process.exit(1);
 	}
 }
 
-async function getUploadLink(file, fileName, folder, token) {
+async function getUploadLink(fileName, folder, token) {
 	const myHeaders = new Headers();
 	myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 	myHeaders.append("Authorization", `Bearer ${token}`);
@@ -56,11 +65,15 @@ async function getUploadLink(file, fileName, folder, token) {
 			requestOptions
 		);
 		const response = await data.json();
-		console.log(response);
+
+		if (response.status !== 200) {
+			console.log("Error getting upload link:", response.message);
+			process.exit(1);
+		}
 
 		const link = response.ChunkUri;
-
 		console.log("Upload link successfully retrieved", link);
+
 		return link;
 	} catch (error) {
 		console.log("Error getting upload link:", error);
@@ -80,8 +93,13 @@ async function uploadFile(file, fileName, link) {
 
 	try {
 		const response = await fetch(link, requestOptions);
+		if (response.status !== 200) {
+			console.log("Error uploading file:", response.statusText);
+			process.exit(1);
+		}
+
 		const responseText = await response.text();
-		console.log("File successfully uploaded.");
+		console.log("File successfully uploaded: ", responseText);
 		return responseText;
 	} catch (error) {
 		console.log("Error uploading file:", error);

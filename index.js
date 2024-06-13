@@ -19,9 +19,9 @@ async function uploadToShareFile() {
 
 		const token = await getToken(clientID, clientSecret, username, password);
 
-		const link = await getUploadLink(file, fileName, folder, token);
-		const response = await uploadFile(file, fileName, link);
-		console.log(response);
+		const link = await getUploadLink(fileName, folder, token);
+		await uploadFile(file, fileName, link);
+
 	} catch (error) {
 		console.log(error);
 		core.setFailed(error.message);

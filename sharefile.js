@@ -1,4 +1,4 @@
-const process = require("process");
+const core = require("@actions/core");
 
 async function getToken(clientID, clientSecret, username, password) {
 	// Authenticate with ShareFile
@@ -27,7 +27,7 @@ async function getToken(clientID, clientSecret, username, password) {
 
 		if (response.status !== 200) {
 			console.log("Error getting auth token:", response.statusText);
-			process.exit(1);
+			core.setFailed("Authentication failed: ", response.statusText);
 		}
 
 		const auth = await response.json();
@@ -36,7 +36,7 @@ async function getToken(clientID, clientSecret, username, password) {
 		return token;
 	} catch (error) {
 		console.log("Error getting auth token:", error);
-		process.exit(1);
+		core.setFailed("Authentication failed: ", error);
 	}
 }
 
@@ -68,7 +68,7 @@ async function getUploadLink(fileName, folder, token) {
 
 		if (response.status !== 200) {
 			console.log("Error getting upload link:", response.message);
-			process.exit(1);
+			core.setFailed("Error getting upload link: ", response.message);
 		}
 
 		const link = response.ChunkUri;
@@ -77,6 +77,7 @@ async function getUploadLink(fileName, folder, token) {
 		return link;
 	} catch (error) {
 		console.log("Error getting upload link:", error);
+		core.setFailed("Error getting upload link: ", error);
 	}
 }
 
@@ -95,7 +96,7 @@ async function uploadFile(file, fileName, link) {
 		const response = await fetch(link, requestOptions);
 		if (response.status !== 200) {
 			console.log("Error uploading file:", response.statusText);
-			process.exit(1);
+			core.setFailed("Error uploading file: ", response.statusText);
 		}
 
 		const responseText = await response.text();
@@ -103,6 +104,7 @@ async function uploadFile(file, fileName, link) {
 		return responseText;
 	} catch (error) {
 		console.log("Error uploading file:", error);
+		core.setFailed("Error uploading file: ", error);
 	}
 }
 

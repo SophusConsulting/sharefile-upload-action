@@ -29,7 +29,7 @@ inputs:
     description: 'Name of the file'
     required: true
     default: ''
-  tags:  
+  tag:  
     description: 'Tags to add to the file'
     required: false
     default: ''

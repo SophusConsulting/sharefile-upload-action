@@ -29,6 +29,10 @@ inputs:
     description: 'Name of the file'
     required: true
     default: ''
+  tags:  
+    description: 'Tags to add to the file'
+    required: false
+    default: ''
   
 outputs:
   time: # id of output

@@ -66,7 +66,7 @@ async function getUploadLink(fileName, folder, token) {
 		);
 		const response = await data.json();
 
-		if (response.status !== 200) {
+		if (data.status !== 200) {
 			console.log("Error getting upload link:", response.message);
 			core.setFailed("Error getting upload link: ", response.message);
 		}

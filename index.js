@@ -19,8 +19,12 @@ async function uploadToShareFile() {
 
 		const token = await getToken(clientID, clientSecret, username, password);
 
-		const uploadName = tag ? `${fileName}_${tag}` : fileName;
+		const fileExtension = filePath.split(".").pop() || "t";
+
+		const uploadName = tag ? `${fileName}_${tag}.${fileExtension}` : fileName;
+
 		const link = await getUploadLink(uploadName, folder, token);
+
 		await uploadFile(file, fileName, link);
 	} catch (error) {
 		console.log(error);

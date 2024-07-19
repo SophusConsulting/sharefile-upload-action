@@ -27,7 +27,7 @@ async function getToken(clientID, clientSecret, username, password) {
 
 		if (response.status !== 200) {
 			console.log("Error getting auth token:", response.statusText);
-			core.setFailed("Authentication failed: ", response.statusText);
+			return null;
 		}
 
 		const auth = await response.json();
@@ -36,7 +36,6 @@ async function getToken(clientID, clientSecret, username, password) {
 		return token;
 	} catch (error) {
 		console.log("Error getting auth token:", error);
-		core.setFailed("Authentication failed: ", error);
 	}
 }
 
@@ -68,7 +67,7 @@ async function getUploadLink(fileName, folder, token) {
 
 		if (data.status !== 200) {
 			console.log("Error getting upload link:", response.message);
-			core.setFailed("Error getting upload link: ", response.message);
+			return null;
 		}
 
 		const link = response.ChunkUri;

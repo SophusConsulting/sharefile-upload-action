@@ -1,6 +1,6 @@
 .DS_Store
-./docs
-./input-example.txt
-./node_modules
+docs/
+input-example.txt
+node_modules/
 package.json
 package-lock.json

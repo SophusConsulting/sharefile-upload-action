@@ -33,7 +33,14 @@ inputs:
     description: 'Tags to add to the file'
     required: false
     default: ''
-  
+  folder-to-create:
+    description: 'Name of folder to create'
+    required: false
+    default: ''
+  folder-parent-id:
+    description: 'Sharefile ID of parent in which to create new folder'
+    required: false
+    default: ''  
 outputs:
   time: # id of output
     description: 'The time we greeted you'

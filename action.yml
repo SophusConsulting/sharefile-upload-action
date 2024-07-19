@@ -33,7 +33,7 @@ inputs:
     description: 'Tags to add to the file'
     required: false
     default: ''
-  folder-to-create:
+  new-folder-name:
     description: 'Name of folder to create'
     required: false
     default: ''

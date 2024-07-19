@@ -6,14 +6,14 @@ const fs = require("fs");
 
 async function uploadToShareFile() {
 	try {
-		// const clientID = core.getInput("client-id");
-		// const clientSecret = core.getInput("client-secret");
-		// const username = core.getInput("username");
-		// const password = core.getInput("password");
-		// const filePath = core.getInput("path-to-file");
-		// const fileName = core.getInput("file-name");
-		// const folder = core.getInput("folder-to-upload");
-		// const tag = core.getInput("tag");
+		const clientID = core.getInput("client-id");
+		const clientSecret = core.getInput("client-secret");
+		const username = core.getInput("username");
+		const password = core.getInput("password");
+		const filePath = core.getInput("path-to-file");
+		const fileName = core.getInput("file-name");
+		const folder = core.getInput("folder-to-upload");
+		const tag = core.getInput("tag");
 
 		const file = await fs.openAsBlob(filePath);
 

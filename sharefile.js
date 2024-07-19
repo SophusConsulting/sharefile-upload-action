@@ -107,8 +107,44 @@ async function uploadFile(file, fileName, link) {
 	}
 }
 
+async function createFolder(newFolderName, parentID, token) {
+	const myHeaders = new Headers();
+	myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+	myHeaders.append("Authorization", `Bearer ${token}`);
+
+	const urlencoded = new URLSearchParams();
+	urlencoded.append("Name", newFolderName);
+
+	const requestOptions = {
+		method: "POST",
+		headers: myHeaders,
+		body: urlencoded,
+		redirect: "follow",
+	};
+
+	try {
+		const data = await fetch(
+			`https://sophusconsulting.sf-api.com/sf/v3/Items(${parentID})/Folder?overwrite=false&passthrough=false`,
+			requestOptions
+		);
+		const response = await data.json();
+
+		if (data.status !== 200) {
+			console.log("Error creating folder:", response.statusText);
+			return null;
+		}
+		const newFolderID = response.Id;
+		console.log(newFolderID);
+		console.log("Folder successfully created with ID: " + newFolderID);
+		return newFolderID;
+	} catch (error) {
+		console.log("Error creating folder:", error);
+	}
+}
+
 module.exports = {
 	getToken,
 	uploadFile,
 	getUploadLink,
+	createFolder,
 };

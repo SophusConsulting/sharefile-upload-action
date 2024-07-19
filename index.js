@@ -17,7 +17,7 @@ async function uploadToShareFile() {
 		const password = core.getInput("password");
 		const filePath = core.getInput("path-to-file");
 		const fileName = core.getInput("file-name");
-		const folder = core.getInput("folder-to-upload");
+		let folder = core.getInput("folder-to-upload");
 		const newFolderName = core.getInput("new-folder-name");
 		const parentID = core.getInput("folder-parent-id");
 		const tag = core.getInput("tag");

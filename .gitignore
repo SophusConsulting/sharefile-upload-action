@@ -2,5 +2,3 @@
 docs/
 input-example.txt
 node_modules/
-package.json
-package-lock.json

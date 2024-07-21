@@ -25,19 +25,27 @@ async function uploadToShareFile() {
 		const file = await fs.openAsBlob(filePath);
 
 		const token = await getToken(clientID, clientSecret, username, password);
-		if (!token) core.setFailed("Authentication failed.");
-
-		if (newFolderName) {
-			folder = await createFolder(newFolderName, parentID, token);
+		if (!token) {
+			core.setFailed("Authentication failed.");
+			return;
 		}
 
-		if (!newFolderName) core.setFailed("Error creating folder.");
+		if (newFolderName && parentID) {
+			folder = await createFolder(newFolderName, parentID, token);
+			if (!folder) {
+				core.setFailed("Error creating folder.");
+				return;
+			}
+		}
 
 		const fileExtension = filePath.split(".").pop() || "t";
 		const uploadName = tag ? `${fileName}_${tag}.${fileExtension}` : fileName;
 
 		const link = await getUploadLink(uploadName, folder, token);
-		if (!link) core.setFailed("Error getting upload link.");
+		if (!link) {
+			core.setFailed("Error getting upload link.");
+			return;
+		}
 
 		await uploadFile(file, fileName, link);
 	} catch (error) {

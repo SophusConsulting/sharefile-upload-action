@@ -32,12 +32,12 @@ async function uploadToShareFile() {
 
 		if (newFolderName && parentID) {
 			folder = await createFolder(newFolderName, parentID, token);
-			core.setOutput('new-folder-id', folder)
 			if (!folder) {
 				core.setFailed("Error creating folder.");
 				return;
 			}
 		}
+		core.setOutput("upload-folder-id", folder);
 
 		const fileExtension = filePath.split(".").pop() || "t";
 		const uploadName = tag ? `${fileName}_${tag}.${fileExtension}` : fileName;
